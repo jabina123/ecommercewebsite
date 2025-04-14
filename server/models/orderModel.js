@@ -18,6 +18,11 @@ const orderSchema = mongoose.Schema(
         qty: Number,
         price: Number,
         image: String,
+        seller: {
+          type: mongoose.Schema.Types.ObjectId,
+          required: true,
+          ref: "User", // Assuming 'User' is the model for sellers
+        },
       },
     ],
     totalAmount: { type: Number, required: true }, // Changed from totalPrice to totalAmount

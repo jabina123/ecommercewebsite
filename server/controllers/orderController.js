@@ -45,4 +45,18 @@ const createOrder = asyncHandler(async (req, res) => {
   res.status(201).json(createdOrder);
 });
 
-module.exports = { createOrder };
+// Get all orders (admin only)
+const getAllOrders = asyncHandler(async (req, res) => {
+  try {
+    const orders = await Order.find({})
+      .populate("user", "name email") // Get user info
+      .populate("orderItems.product", "name price") // Optionally populate product info
+      .populate("orderItems.seller", "name email"); // If you want seller details for each product
+
+    res.status(200).json(orders);
+  } catch (error) {
+    res.status(500).json({ message: "Server error while fetching orders" });
+  }
+});
+
+module.exports = { createOrder, getAllOrders };

@@ -46,13 +46,15 @@ const protect = asyncHandler(async (req, res, next) => {
 });
 
 const isAdmin = (req, res, next) => {
+    console.log("User trying to access admin route:", req.user);
     if (req.user && req.user.role === "admin") {
-        next();  // Proceed if the user is an admin
+      next();
     } else {
-        console.log("User is not an admin:", req.user);  // Log user for debugging
-        res.status(401).json({ message: "Not authorized as an admin" });
+      res.status(401);
+      throw new Error("Not authorized as an admin");
     }
-};
+  };
+  
 
 const isSeller = (req, res, next) => {
     if (req.user && req.user.role === "seller") {

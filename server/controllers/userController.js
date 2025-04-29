@@ -69,8 +69,9 @@ const getUserProfile = asyncHandler(async (req, res) => {
 });
 // Get all users (Admin only)
 const getAllUsers = asyncHandler(async (req, res) => {
-  const users = await User.find({});
+  const users = await User.find({}).select("-password");
   res.json(users);
 });
+
 
 module.exports = { registerUser, loginUser, getUserProfile, getAllUsers,};

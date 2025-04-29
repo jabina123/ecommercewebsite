@@ -7,25 +7,31 @@ const {
   deleteProduct,
   createProductReview,
 } = require("../controllers/productController");
+
 const { protect, isAdmin, isSeller } = require("../middleware/authMiddleware");
 const upload = require("../middleware/uploadMiddleware");
 
 const router = express.Router();
 
-// Public route: Get all products
+// ✅ Admin-only route to get all products
+router.get("/admin", protect, isAdmin, getProducts);
+
+// 🌐 Public route: Get all products (home/shop page)
 router.get("/", getProducts);
 
-// Admin or Seller can create a product (Admin and Seller can access this route)
+// 🆕 Create product (Admin or Seller only, with image upload)
 router.post("/", protect, isSeller, upload.single("image"), createProduct);
 
-// Routes for single product management (only admin/seller can update or delete)
-router
-  .route("/:id")
-  .get(getProductById)
-  .put(protect, isAdmin, upload.single("image"), updateProduct)  // Only Admin can update product
-  .delete(protect, isAdmin, deleteProduct);  // Only Admin can delete product
+// 🔍 Get single product details (public)
+router.get("/:id", getProductById);
 
-// Create a review for a product (auth required)
-router.route("/:id/reviews").post(protect, createProductReview);
+// 📝 Add a product review (Logged-in users only)
+router.post("/:id/reviews", protect, createProductReview);
+
+// 🔄 Update a product (Admin only, with image upload)
+router.put("/:id", protect, isAdmin, upload.single("image"), updateProduct);
+
+// ❌ Delete a product (Admin only)
+router.delete("/:id", protect, isAdmin, deleteProduct);
 
 module.exports = router;

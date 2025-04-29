@@ -1,0 +1,21 @@
+# Environment variables
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# Node modules (for Node.js projects)
+node_modules/
+
+# Dependencies (for Python projects)
+__pycache__/
+venv/
+
+# Build files
+build/
+dist/
+
+# IDE files
+.vscode/
+.idea/

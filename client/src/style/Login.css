@@ -1,0 +1,29 @@
+/* src/style/Login.css */
+.login-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .login-container .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .login-container .btn {
+    width: 100%;
+  }
+  .login-wrapper {
+    background-color: #f5f6fa;
+  }
+  .card {
+    border-radius: 10px;
+  }
+ /* Make the whole page take full height */
